@@ -55,34 +55,37 @@ if __name__ == '__main__':
     sympy.pprint(func)
     print()
     plot(func, (x, a, b), show=True)
-    n = 21  # Count of iter
+    # n = int(input("Enter num of iteration"))
+    n = 1021  # Count of iter
     h = (b - a) / n
-
+    temp_func =  1 / ((1 - x) ** (3 / 4))
     lst = [a + h * i for i in range(n + 1)]
 
-    print(len(lst))
+    # print(len(lst))
     # print(lst)
     # f1  = func
-    f1 = func.series(x, 0, 8).removeO()
-    print(f1)
-    f2 = func.series(x, 0, 4).removeO()
-    print(f2)
-    f1 = f1 - f2
+    f1 = temp_func.series(x, 0, 8).removeO()
+    # print(f1)
+    f2 = temp_func.series(x, 0, 4).removeO()
+    # print(f2)
+    f1 = (f1 - f2)*(1/sympy.sqrt(x))
+    f2 = (f2) * (1 / sympy.sqrt(x))
     print(f1)
     inter1 = midl_sq(f1, lst, h)
     inter2 = midl_sq(f2, lst, h)
-    print(inter1 + inter2)
+    print(inter1 + inter2 )
     y = sympy.Symbol('y')
-    absolut = sympy.integrate(func, (x, y, b))
-    print(absolut)
+    # absolut = sympy.integrate(func, (x, y, b))
+    absolut = 3.342971564090088
+    # print(abs(absolut - inter1 - inter2 ))
 
     #
-    # integr = midl_sq(func, lst, h)
-    # print(integr)
+    integr = midl_sq(func, lst, h)
+    print('sredn kvadrat ',integr)
     # absolut = sympy.integrate(func, (x, a, b)).evalf()
-    # print(absolut)
+    print('absolut',absolut)
     # # print(abs(absolut - integr))
-    # simp = simpson(func, lst, h)
-    # print(simp)
-    # print(f'Средние прямоугольники разнциа {abs(absolut - integr)}')
-    # print(f'Симпсон разнциа {abs(simp - absolut)}')
+    simp = simpson(func, lst, h)
+    print(simp)
+    print(f'Средние прямоугольники разнциа {abs(absolut - integr)}')
+    print(f'Симпсон разнциа {abs(simp - absolut)}')
